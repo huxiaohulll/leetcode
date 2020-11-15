@@ -1,0 +1,58 @@
+
+1.哈希法：set集合存储无重复元素，若set的大小小于加入的数量，则说明已有重复元素。
+
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        set<int> sets;
+        for(int i=0;i<=nums.size();i++){
+            sets.insert(nums[i]);
+            if(sets.size()<i+1)
+                return nums[i];
+           
+        }
+       return -1;
+    }
+
+    
+};
+
+2.排序法：将所有元素排序，如果有前后两个元素重复，则值相等。
+
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for(int i = 0; i<nums.size()-1;i++){
+            if(nums[i]==nums[i+1]){
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+
+    
+};
+
+3.原地交换法：nums的数量为N,所有数字都在 0～N-1 的范围内,所以将每个元素依次放在坐标=元素值的位置上，若已有重复值，则会判断相等返回。
+
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        for(int i =0 ;i<nums.size();i++){
+            //先判断是否元素是否在元素值大小的位置上
+            while(nums[i]!=i){
+                //如果已有重复值，返回。否则交换
+                if(nums[i]==nums[nums[i]]){
+                    return nums[i];
+                }
+                swap(nums[i],nums[nums[i]]);
+                i++;
+            }
+        }
+        return -1;
+        
+    }
+
+    
+};
